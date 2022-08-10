@@ -1,5 +1,15 @@
+import { Route, Routes } from "react-router-dom";
+
+import { Home } from "./pages/Home/Home";
+import SignIn from "./pages/SignIn/SignIn";
+
 const App = () => {
-  return <h1>Here we go again</h1>;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/sign-in" element={<SignIn />} />
+    </Routes>
+  );
 };
 
 export default App;
