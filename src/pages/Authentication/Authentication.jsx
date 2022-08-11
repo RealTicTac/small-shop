@@ -1,6 +1,6 @@
 import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
 
-const SignIn = () => {
+const Authentication = () => {
   return (
     <div>
       <button onClick={signInWithGooglePopup}></button>
@@ -8,4 +8,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Authentication;

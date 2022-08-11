@@ -16,7 +16,7 @@ const NavBar = () => {
       </StyledLogo>
       <StyledNavLinks>
         <StyledNavLink to="shop">Shop</StyledNavLink>
-        <StyledNavLink to="sign-in">Sign In</StyledNavLink>
+        <StyledNavLink to="/auth">Sign In</StyledNavLink>
       </StyledNavLinks>
     </StyledNavBar>
   );
