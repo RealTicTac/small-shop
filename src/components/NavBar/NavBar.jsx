@@ -2,23 +2,23 @@ import React from "react";
 
 import { ReactComponent as Logo } from "../../assets/Logo.svg";
 import {
-  StyledLogo,
-  StyledNavBar,
-  StyledNavLink,
-  StyledNavLinks,
+  LogoContrainer,
+  NavBarContainer,
+  NavLink,
+  NavLinks,
 } from "./NabBar.styles";
 
 const NavBar = () => {
   return (
-    <StyledNavBar>
-      <StyledLogo to="/">
+    <NavBarContainer>
+      <LogoContrainer to="/">
         <Logo />
-      </StyledLogo>
-      <StyledNavLinks>
-        <StyledNavLink to="shop">Shop</StyledNavLink>
-        <StyledNavLink to="/auth">Sign In</StyledNavLink>
-      </StyledNavLinks>
-    </StyledNavBar>
+      </LogoContrainer>
+      <NavLinks>
+        <NavLink to="shop">Shop</NavLink>
+        <NavLink to="/auth">Sign In</NavLink>
+      </NavLinks>
+    </NavBarContainer>
   );
 };
 

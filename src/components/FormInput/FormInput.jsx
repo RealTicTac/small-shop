@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Group, StyledFormLabel, StyledFormInput } from "./FormInput.styles";
+import { Group, Label, Input } from "./FormInput.styles";
 
-const FormInput = (label, ...otherProps) => {
+const FormInput = ({ label, ...otherProps }) => {
   return (
     <Group>
-      {label && <StyledFormLabel>{label}</StyledFormLabel>}
-      <StyledFormInput {...otherProps} />
+      <Input {...otherProps} />
+      {label && <Label shrink={otherProps.value.length}>{label}</Label>}
     </Group>
   );
 };

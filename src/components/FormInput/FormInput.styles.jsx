@@ -1,13 +1,13 @@
-import { styled, css } from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
 const mainColor = "black";
 const subColor = "grey";
-const shrinkStyle = styled.css`
+const shrinkStyle = css`
   top: -14px;
   font-size: 12px;
   color: ${mainColor};
 `;
-export const StyledFormLabel = styled("div")`
+export const Label = styled("label")`
   color: ${subColor};
   font-size: 16px;
   font-weight: normal;
@@ -19,7 +19,7 @@ export const StyledFormLabel = styled("div")`
 
   ${(props) => (props.shrink ? shrinkStyle : "")}
 `;
-export const StyledFormInput = styled("div")`
+export const Input = styled("input")`
   background: none;
   background-color: white;
   color: ${subColor};
@@ -36,7 +36,7 @@ export const StyledFormInput = styled("div")`
     outline: none;
   }
 
-  &:focus ~ ${StyledFormLabel} {
+  &:focus ~ ${Label} {
     ${shrinkStyle}
   }
 `;

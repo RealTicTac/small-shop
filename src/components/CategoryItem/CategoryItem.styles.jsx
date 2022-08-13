@@ -17,6 +17,7 @@ export const CategoryBody = styled("div")`
     margin: 0 6px 0;
     font-size: 22px;
     color: #4a4a4a;
+    text-transform: uppercase;
   }
 
   p {
@@ -30,6 +31,7 @@ export const BackgroundImage = styled("div")`
   height: 100%;
   background-size: cover;
   background-position: center;
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const Category = styled("div")`
@@ -46,12 +48,12 @@ export const Category = styled("div")`
   &:hover {
     cursor: pointer;
 
-    & BackgroundImage {
+    & ${BackgroundImage} {
       transform: scale(1.1);
       transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
-    & CategoryBody {
+    & ${CategoryBody} {
       opacity: 0.9;
     }
   }

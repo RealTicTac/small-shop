@@ -5,6 +5,9 @@ import {
 } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../FormInput/FormInput";
+import Button from "../Button/Button";
+
+import { SignUpContainer } from "./SignUp.styles";
 
 const defaultFormValues = {
   displayName: "",
@@ -47,37 +50,45 @@ const SighUp = () => {
     }
   };
   return (
-    <form onSubmit={() => {}}>
-      <FormInput
-        required
-        type="text"
-        name="displayName"
-        value={displayName}
-        onChange={handleChange}
-      />
-      <FormInput
-        required
-        type="email"
-        name="email"
-        value={email}
-        onChange={handleChange}
-      />
-      <FormInput
-        required
-        type="password"
-        name="password"
-        value={password}
-        onChange={handleChange}
-      />
-      <FormInput
-        required
-        type="password"
-        name="confirmPassword"
-        value={confirmPassword}
-        onChange={handleChange}
-      />
-      <button type="submit"></button>
-    </form>
+    <SignUpContainer>
+      <h2>Don't have an account?</h2>
+      <span>Sign up with email and password</span>
+      <form onSubmit={() => {}}>
+        <FormInput
+          label="Display Name"
+          required
+          type="text"
+          name="displayName"
+          value={displayName}
+          onChange={handleChange}
+        />
+        <FormInput
+          label="Email"
+          required
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
+        <FormInput
+          label="Password"
+          required
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        />
+        <FormInput
+          label="Confirm Password"
+          required
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={handleChange}
+        />
+        <Button type="submit">Sign In</Button>
+      </form>
+    </SignUpContainer>
   );
 };
 

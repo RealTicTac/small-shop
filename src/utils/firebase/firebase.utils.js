@@ -6,8 +6,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from "fibebase/auth";
-import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
+} from "firebase/auth";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  getFirestore,
+  getDocs,
+  query,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyAzs8wsOxkeSOUBUJS4B-Be5Vg2inXmaa0",
   authDomain: "simple-shop-72e1a.firebaseapp.com",
@@ -71,4 +80,30 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 
 export const sighOutUser = async () => {
   return await signOut(auth);
+};
+
+export const addDocumentsToFirebase = async (collectionKey, objectsToAdd) => {
+  const collectionRef = await collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((document) => {
+    const documentRef = doc(collectionRef, document.title.toLowerCase());
+    batch.set(documentRef, document);
+  });
+
+  await batch.commit();
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const catergoryMap = querySnapshot.docs.reduce((acc, document) => {
+    const { title, items } = querySnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return catergoryMap;
 };

@@ -1,10 +1,14 @@
-import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+import SignIn from "../../components/SignIn/SignIn";
+import SignUp from "../../components/SignUp/SignUp";
+
+import { AuthenticationContainer } from "./Authentication.styles";
 
 const Authentication = () => {
   return (
-    <div>
-      <button onClick={signInWithGooglePopup}></button>
-    </div>
+    <AuthenticationContainer>
+      <SignIn />
+      <SignUp />
+    </AuthenticationContainer>
   );
 };
 
