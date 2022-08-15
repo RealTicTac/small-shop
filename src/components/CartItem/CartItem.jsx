@@ -1,14 +1,14 @@
 import React from "react";
 import { ItemDetails, Title, Container } from "./CartItem.styles";
 
-const CartItem = ({ product: { title, imageUrl, price, count } }) => {
+const CartItem = ({ product: { name, imageUrl, price, count } }) => {
   return (
     <Container>
       <img src={imageUrl} alt="title" />
       <ItemDetails>
-        <Title>{title}</Title>
+        <Title>{name}</Title>
         <span>
-          {price} * {count}
+          ${price}x{count}
         </span>
       </ItemDetails>
     </Container>

@@ -29,5 +29,12 @@ export const NavLinks = styled("div")`
 `;
 export const NavLink = styled(Link)`
   padding: 10px 15px;
+  white-space: nowrap;
+  cursor: pointer;
+`;
+
+export const SignOut = styled("span")`
+  padding: 10px 25px;
+  white-space: nowrap;
   cursor: pointer;
 `;

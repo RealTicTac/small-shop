@@ -1,4 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+} from "../../redux/slices/cart.slice";
 
 import {
   Arrow,
@@ -11,23 +18,27 @@ import {
   Title,
 } from "./CheckoutItem.styles";
 
-const CheckOutItem = ({ cartItem }) => {
-  const { imageUrl, title, price, count } = cartItem;
+const CheckoutItem = ({ cartItem }) => {
+  const dispatch = useDispatch();
+  const { imageUrl, name, price, count } = cartItem;
+  const onAddItemHandler = () => dispatch(addItemToCart(cartItem));
+  const onRemoveItemHandler = () => dispatch(removeItemFromCart(cartItem));
+  const onClearItemHandler = () => dispatch(clearItemFromCart(cartItem));
   return (
     <Container>
       <ImageContainer>
-        <img src={imageUrl} alt={title} />
+        <img src={imageUrl} alt={name} />
       </ImageContainer>
-      <Title>{title}</Title>
+      <Title>{name}</Title>
       <CountContainer>
-        <Arrow>&#10094;</Arrow>
+        <Arrow onClick={onRemoveItemHandler}>&#10094;</Arrow>
         <Count>{count}</Count>
-        <Arrow>&#10095;</Arrow>
+        <Arrow onClick={onAddItemHandler}>&#10095;</Arrow>
       </CountContainer>
-      <Price>{price}</Price>
-      <RemoveButton>&#10085;</RemoveButton>
+      <Price>${price}</Price>
+      <RemoveButton onClick={onClearItemHandler}>&#10005;</RemoveButton>
     </Container>
   );
 };
 
-export default CheckOutItem;
+export default CheckoutItem;

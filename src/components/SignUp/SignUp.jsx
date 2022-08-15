@@ -53,7 +53,7 @@ const SighUp = () => {
     <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with email and password</span>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSumbit}>
         <FormInput
           label="Display Name"
           required

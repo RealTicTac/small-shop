@@ -16,6 +16,16 @@ export const Container = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  ${GoogleSignIn},
+  ${Base},
+		${Inverted} {
+    width: 80%;
+    opacity: 0.7;
+    position: absolute;
+    top: 255px;
+    display: none;
+    padding: 0 15px;
+  }
 
   &:hover {
     ${Image} {

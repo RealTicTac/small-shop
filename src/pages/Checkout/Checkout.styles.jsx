@@ -22,7 +22,7 @@ export const CheckoutHeader = styled.div`
   border-bottom: 1px solid darkgrey;
 `;
 
-export const Contrainer = styled.div`
+export const Container = styled.div`
   width: 55%;
   min-height: 90vh;
   display: flex;

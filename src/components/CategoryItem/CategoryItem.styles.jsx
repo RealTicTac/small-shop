@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
 
 export const CategoryBody = styled("div")`
   height: 90px;
@@ -34,7 +35,7 @@ export const BackgroundImage = styled("div")`
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
-export const Category = styled("div")`
+export const Category = styled(Link)`
   min-width: 30%;
   height: 240px;
   flex: 1 1 auto;

@@ -1,7 +1,12 @@
+import React from "react";
 import styled from "styled-components/macro";
 import { GoogleSignIn, Base, Inverted } from "../Button/Button.styles";
 
-export const Container = styled.div`
+const ContainerWithRef = React.forwardRef((props, ref) => {
+  return <div ref={ref}>{props.children}</div>;
+});
+
+export const Container = styled("div")`
   position: absolute;
   width: 240px;
   height: 340px;
@@ -15,6 +20,7 @@ export const Container = styled.div`
   z-index: 5;
   ${GoogleSignIn}, ${Base}, ${Inverted} {
     margin-top: auto;
+    padding: 0 15px;
   }
 `;
 

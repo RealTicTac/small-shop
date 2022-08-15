@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   doc,
@@ -78,9 +79,12 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const sighOutUser = async () => {
+export const signOutUser = async () => {
   return await signOut(auth);
 };
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
 
 export const addDocumentsToFirebase = async (collectionKey, objectsToAdd) => {
   const collectionRef = await collection(db, collectionKey);
@@ -99,11 +103,7 @@ export const getCategoriesAndDocuments = async () => {
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  const catergoryMap = querySnapshot.docs.reduce((acc, document) => {
-    const { title, items } = querySnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
+  const catergoryData = querySnapshot.docs.map((item) => item.data());
 
-  return catergoryMap;
+  return catergoryData;
 };

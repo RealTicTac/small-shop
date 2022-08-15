@@ -11,7 +11,7 @@ const CategoryFull = ({ title, products }) => {
       <Container>
         {products &&
           products.map((product) => (
-            <ProductCard product={product} key={title} />
+            <ProductCard product={product} key={product.id} />
           ))}
       </Container>
     </>

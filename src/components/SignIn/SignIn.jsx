@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
@@ -6,6 +7,7 @@ import {
 
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button";
+import { setUser } from "../../redux/slices/user.slice";
 
 import { ButtonContainer, SignInContainer } from "./SignIn.styles";
 
@@ -15,6 +17,7 @@ const defaultFormValues = {
 };
 
 const SighIn = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = React.useState(defaultFormValues);
   const { email, password } = formValues;
   const clearForm = () => {
@@ -29,7 +32,7 @@ const SighIn = () => {
 
     try {
       const { user } = await signInUserWithEmailAndPassword(email, password);
-
+      dispatch(setUser(user));
       clearForm();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -43,7 +46,7 @@ const SighIn = () => {
     <SignInContainer>
       <h2>Do you have an account?</h2>
       <span>Sign in with email and password</span>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSumbit}>
         <FormInput
           label="Email"
           required

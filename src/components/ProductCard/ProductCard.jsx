@@ -1,20 +1,28 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
-import { Button } from "../Button/Button";
+import Button from "../Button/Button";
+import { addItemToCart } from "src/redux/slices/cart.slice";
 
 import { Name, Price, Container, Info, Image } from "./ProductCard.styles";
 
 const ProductCard = ({ product }) => {
-  const { imageUrl, title, price } = product;
+  const dispatch = useDispatch();
+  const { imageUrl, name, price } = product;
 
+  const onAddHandler = () => {
+    dispatch(addItemToCart(product));
+  };
   return (
     <Container>
-      <Image src={imageUrl} alt={title}></Image>
+      <Image src={imageUrl} alt={name}></Image>
       <Info>
-        <Name>{title}</Name>
+        <Name>{name}</Name>
         <Price>{price}</Price>
       </Info>
-      <Button buttonType="inverted">Add to cart</Button>
+      <Button buttonType="inverted" onClick={onAddHandler}>
+        Add to cart
+      </Button>
     </Container>
   );
 };
