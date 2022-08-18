@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -17,6 +18,7 @@ const defaultFormValues = {
 };
 
 const SighUp = () => {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = React.useState(defaultFormValues);
   const { displayName, email, password, confirmPassword } = formValues;
   const clearForm = () => {
@@ -41,6 +43,7 @@ const SighUp = () => {
 
       await createUserDocumentFromAuth(user);
       clearForm();
+      navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Email already in use");

@@ -7,7 +7,7 @@ export const Container = styled.div`
   row-gap: 50px;
 `;
 
-export const Title = styled.span`
+export const Title = styled.h2`
   font-size: 30px;
   margin-bottom: 25px;
   text-align: center;

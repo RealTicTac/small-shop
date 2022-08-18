@@ -80,3 +80,27 @@ export const selectCategoriesList = createSelector(
     }, []);
   }
 );
+
+export const byId = (id) => (state) => selectItemByIdTest(state, id);
+
+const selectItemByIdTest = createSelector(
+  [selectCategories, (_, id) => id],
+  (categories, id) => {
+    let itemById = undefined;
+    categories.items.forEach((category) => {
+      itemById = itemById || category.items.find((item) => item.id === id);
+    });
+    console.log("reselected");
+    return itemById;
+  }
+);
+
+export const selectItemById = (id) =>
+  createSelector([selectCategories], (state) => {
+    let itemById = undefined;
+    state.items.forEach((category) => {
+      itemById = itemById || category.items.find((item) => item.id === id);
+    });
+    console.log("reselected");
+    return itemById;
+  });

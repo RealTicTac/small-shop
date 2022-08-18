@@ -2,10 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import { GoogleSignIn, Base, Inverted } from "../Button/Button.styles";
 
-const ContainerWithRef = React.forwardRef((props, ref) => {
-  return <div ref={ref}>{props.children}</div>;
-});
-
 export const Container = styled("div")`
   position: absolute;
   width: 240px;
@@ -33,5 +29,5 @@ export const CartItems = styled.div`
   height: 240px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 `;

@@ -27,7 +27,8 @@ export const Arrow = styled.span`
   cursor: pointer;
 `;
 
-export const CountContainer = styled(Title)`
+export const CountContainer = styled("span")`
+  width: 23%;
   display: flex;
 `;
 export const Count = styled.span`

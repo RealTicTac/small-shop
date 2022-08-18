@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   signInUserWithEmailAndPassword,
@@ -18,6 +19,7 @@ const defaultFormValues = {
 
 const SighIn = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formValues, setFormValues] = React.useState(defaultFormValues);
   const { email, password } = formValues;
   const clearForm = () => {
@@ -34,6 +36,7 @@ const SighIn = () => {
       const { user } = await signInUserWithEmailAndPassword(email, password);
       dispatch(setUser(user));
       clearForm();
+      navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Email already in use");
@@ -41,6 +44,10 @@ const SighIn = () => {
         throw new Error("User creation is errored");
       }
     }
+  };
+  const handleGoogleSignIn = async (e) => {
+    await signInWithGooglePopup();
+    navigate("/");
   };
   return (
     <SignInContainer>
@@ -68,7 +75,7 @@ const SighIn = () => {
           <Button
             buttonType="google"
             type="butotn"
-            onClick={signInWithGooglePopup}
+            onClick={handleGoogleSignIn}
           >
             Google Sign In
           </Button>

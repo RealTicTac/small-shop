@@ -32,7 +32,10 @@ const NavBar = () => {
         <NavLinks>
           <NavLink to="shop">Shop</NavLink>
           {currentUser ? (
-            <SignOut onClick={signOutHandler}>Sign out</SignOut>
+            <>
+              <NavLink to="/history">History</NavLink>
+              <SignOut onClick={signOutHandler}>Sign out</SignOut>
+            </>
           ) : (
             <NavLink to="/auth">Sign In</NavLink>
           )}

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "../Button/Button";
-import { addItemToCart } from "src/redux/slices/cart.slice";
+import { addItemToCart } from "redux/slices/cart.slice";
 
 import { Name, Price, Container, Info, Image } from "./ProductCard.styles";
 

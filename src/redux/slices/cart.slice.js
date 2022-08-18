@@ -37,8 +37,14 @@ const cartSlice = createSlice({
         }
       }
     },
+    clearCart(state) {
+      state.items = [];
+    },
     toggleCartOpen(state) {
       state.isCartOpen = !state.isCartOpen;
+    },
+    setCartOpen(state, action) {
+      state.isCartOpen = action.payload;
     },
   },
 });
@@ -48,11 +54,21 @@ export const {
   removeItemFromCart,
   clearItemFromCart,
   toggleCartOpen,
+  setCartOpen,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
-export const selectCartItems = (state) => state.cart.items;
+const selectCart = (state) => state.cart;
+export const selectCartOpen = createSelector(
+  [selectCart],
+  (state) => state.isCartOpen
+);
+export const selectCartItems = createSelector(
+  [selectCart],
+  (state) => state.items
+);
 export const selectTotalCount = createSelector([selectCartItems], (state) => {
   return state.reduce((acc, item) => {
     acc += item.count;

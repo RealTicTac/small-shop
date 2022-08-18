@@ -17,6 +17,7 @@ import {
   query,
   collection,
   writeBatch,
+  where,
 } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyAzs8wsOxkeSOUBUJS4B-Be5Vg2inXmaa0",
@@ -106,4 +107,46 @@ export const getCategoriesAndDocuments = async () => {
   const catergoryData = querySnapshot.docs.map((item) => item.data());
 
   return catergoryData;
+};
+
+export const setNewOrder = async (user, items) => {
+  if (!user) return;
+  const customerId = auth.currentUser.uid;
+  const createdAt = new Date();
+  const itemsToAdd = items.map(({ price, count, id }) => {
+    return { price, quantity: count, productId: id };
+  });
+  const newOrderRef = doc(collection(db, "orders"));
+  try {
+    await setDoc(newOrderRef, {
+      createdAt,
+      items: [...itemsToAdd],
+      paymentStatus: "done",
+      status: "complete",
+      customerId,
+    });
+  } catch (error) {
+    throw new Error("Something went wrong with ordering items");
+  }
+};
+
+export const getOrdersFromUser = async (user) => {
+  if (!user) return;
+  const collectionRef = collection(db, "orders");
+  const q = query(collectionRef, where("customerId", "==", user.uid));
+
+  const ordersSnapshot = await getDocs(q);
+  console.log(ordersSnapshot);
+  if (!ordersSnapshot.empty) {
+    const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+    ordersSnapshot.forEach((doc) => {
+      console.log(`${doc.id}: ${JSON.stringify(doc.data())}`);
+    });
+    //!Bad practice sorting in api
+    ordersData.sort((a, b) => {
+      return -1 * (a.createdAt.seconds - b.createdAt.seconds);
+    });
+    return ordersData;
+  }
+  return [];
 };

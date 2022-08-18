@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { selectCategoriesMap } from "src/redux/slices/categories.slice";
+import { selectCategoriesMap } from "redux/slices/categories.slice";
 import CategoryFull from "../../components/CategoryFull/CategoryFull";
 
 const Category = () => {
