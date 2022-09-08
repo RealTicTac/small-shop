@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 import { Category, CategoryBody, BackgroundImage } from "./CategoryItem.styles";
 
 const CategoryItem = ({ category }) => {

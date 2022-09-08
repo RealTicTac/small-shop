@@ -33,7 +33,7 @@ const NavBar = () => {
           <NavLink to="shop">Shop</NavLink>
           {currentUser ? (
             <>
-              <NavLink to="/history">History</NavLink>
+              <NavLink to="/profile">Profile</NavLink>
               <SignOut onClick={signOutHandler}>Sign out</SignOut>
             </>
           ) : (

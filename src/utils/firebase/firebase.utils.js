@@ -136,17 +136,34 @@ export const getOrdersFromUser = async (user) => {
   const q = query(collectionRef, where("customerId", "==", user.uid));
 
   const ordersSnapshot = await getDocs(q);
-  console.log(ordersSnapshot);
   if (!ordersSnapshot.empty) {
     const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
-    ordersSnapshot.forEach((doc) => {
-      console.log(`${doc.id}: ${JSON.stringify(doc.data())}`);
-    });
-    //!Bad practice sorting in api
-    ordersData.sort((a, b) => {
-      return -1 * (a.createdAt.seconds - b.createdAt.seconds);
-    });
     return ordersData;
   }
   return [];
+};
+
+export const getUserProviderInfo = (user) => {
+  return { ...user.providerData };
+};
+
+export const getUserInfoFromDb = async (user) => {
+  if (!user) return;
+  const docRef = doc(db, "users", user.uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return { ...docSnap.data() };
+  } else {
+    throw new Error(`Can't get info - there is no such user`);
+  }
+};
+
+export const setUserInfoToDb = async (user, data) => {
+  if (!user) return;
+  const docRef = doc(db, "users", user.uid);
+  try {
+    await setDoc(docRef, data);
+  } catch (error) {
+    throw new Error("Problem with setting user info");
+  }
 };

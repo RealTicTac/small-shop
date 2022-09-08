@@ -1,7 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentUser: null,
+  userInfo: {
+    shippingAddress: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    displayName: "",
+    createdAt: "",
+  },
 };
 
 const userSlice = createSlice({
@@ -12,11 +20,26 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
     },
     clearUser(state, action) {
-      state.currentUser = null;
+      return initialState;
+    },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload;
     },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, setUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;
+
+const selectUser = (state) => state.user;
+
+export const selectCurrentUser = createSelector(
+  [selectUser],
+  (state) => state.currentUser
+);
+
+export const selectUserInfo = createSelector(
+  selectUser,
+  (user) => user.userInfo
+);

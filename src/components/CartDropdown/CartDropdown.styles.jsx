@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components/macro";
 import { GoogleSignIn, Base, Inverted } from "../Button/Button.styles";
 

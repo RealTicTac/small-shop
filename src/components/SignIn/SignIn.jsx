@@ -5,37 +5,36 @@ import {
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
+import * as z from "zod";
 
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button";
 import { setUser } from "../../redux/slices/user.slice";
 
 import { ButtonContainer, SignInContainer } from "./SignIn.styles";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const defaultFormValues = {
-  email: "",
-  password: "",
-};
+const schema = z.object({
+  email: z.string().email().min(6).max(40),
+  password: z.string().min(6).max(30),
+});
 
 const SighIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [formValues, setFormValues] = React.useState(defaultFormValues);
-  const { email, password } = formValues;
-  const clearForm = () => {
-    setFormValues(defaultFormValues);
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-  const handleSumbit = async (e) => {
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({ resolver: zodResolver(schema) });
+  const onSubmit = async (data, e) => {
     e.preventDefault();
 
     try {
+      const { email, password } = data;
       const { user } = await signInUserWithEmailAndPassword(email, password);
       dispatch(setUser(user));
-      clearForm();
       navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -49,27 +48,21 @@ const SighIn = () => {
     await signInWithGooglePopup();
     navigate("/");
   };
+
   return (
     <SignInContainer>
       <h2>Do you have an account?</h2>
       <span>Sign in with email and password</span>
-      <form onSubmit={handleSumbit}>
-        <FormInput
-          label="Email"
-          required
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormInput label="Email" name="email" control={control} />
+        {errors.email?.message && <p>{errors.email.message}</p>}
         <FormInput
           label="Password"
-          required
           type="password"
           name="password"
-          value={password}
-          onChange={handleChange}
+          control={control}
         />
+        {errors.password?.message && <p>{errors.password.message}</p>}
         <ButtonContainer>
           <Button type="submit">Sign In</Button>
           <Button

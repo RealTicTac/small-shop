@@ -14,7 +14,6 @@ import {
   Product,
   Name,
   Price,
-  Quantity,
   Container,
   ItemsDetails,
   OrderId,
@@ -22,6 +21,7 @@ import {
 } from "./HistoryItem.styles";
 
 const OrderedProduct = ({ item }) => {
+  //eslint-disable-next-line
   const memoSelect = React.useCallback(selectItemById(item.productId), [
     item.productId,
     selectItemById,

@@ -1,26 +1,44 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import HistoryItem from "components/HistoryItem/HistoryItem";
+
+import { selectCurrentUser } from "redux/slices/user.slice";
 import { getOrdersFromUser } from "utils/firebase/firebase.utils";
 
-import HistoryItem from "components/HistoryItem/HistoryItem";
+import {
+  Container,
+  Title,
+  HistorySpinner,
+  HistoryItems,
+} from "./Histroy.styles";
 
 const History = () => {
   const [historyData, setHistoryData] = React.useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const handleHistory = async () => {
-    setHistoryData(await getOrdersFromUser(currentUser));
-  };
-  console.log(historyData);
+  const currentUser = useSelector(selectCurrentUser);
+
+  React.useEffect(() => {
+    (async () => {
+      setHistoryData(
+        (await getOrdersFromUser(currentUser)).sort((a, b) => {
+          return -1 * (a.createdAt.seconds - b.createdAt.seconds);
+        })
+      );
+    })();
+  }, []);
   return (
-    <>
-      <h2>Orders you have made:</h2>
-      {historyData.length &&
-        historyData.map((order, idx) => {
-          return <HistoryItem order={order} key={idx} />;
-        })}
-      <button onClick={handleHistory}>Fetch History</button>
-    </>
+    <Container>
+      <Title>Orders you have made so far</Title>
+      {historyData.length < 1 ? (
+        <HistorySpinner />
+      ) : (
+        <HistoryItems>
+          {historyData.map((order, idx) => {
+            return <HistoryItem order={order} key={idx} />;
+          })}
+        </HistoryItems>
+      )}
+    </Container>
   );
 };
 
