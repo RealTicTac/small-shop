@@ -67,7 +67,7 @@ const SighIn = () => {
           <Button type="submit">Sign In</Button>
           <Button
             buttonType="google"
-            type="butotn"
+            type="button"
             onClick={handleGoogleSignIn}
           >
             Google Sign In
